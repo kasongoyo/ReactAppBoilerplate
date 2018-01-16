@@ -1,6 +1,6 @@
 {
   "name": "open311-web-public",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Public website for open311-api",
   "main": "src/index.js",
   "license": "MIT",
