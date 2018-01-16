@@ -1,0 +1,23 @@
+/*
+    ./.babelrc
+*/
+{
+	"presets": [
+		[
+			"env",
+			{
+				"es2015": {
+					"modules": false
+				},
+				"targets": {
+					"ie": 9
+				}
+			}
+		],
+		"react"
+	],
+	"plugins": [
+		"react-hot-loader/babel",
+		"transform-object-rest-spread"
+	]
+}
