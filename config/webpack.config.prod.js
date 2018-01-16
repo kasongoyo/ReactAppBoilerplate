@@ -100,6 +100,7 @@ const clientConfig = {
   },
   /*eslint indent:0 */
   plugins: [
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.DefinePlugin({ // <-- key to reducing React's size
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
