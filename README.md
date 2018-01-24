@@ -1,7 +1,8 @@
 # React App Boilerplate
-This is the template for any simple react app project. In addition to react,  It is also contains the following technologies
-- Redux
-- React route
+This is the base template for react app project. It has out of box integration with
+- [Redux](https://redux.js.org/)
+- [React route](https://reacttraining.com/react-router/)
+- [storybook](https://storybook.js.org/)
 
 ## Project Structure
 ```
