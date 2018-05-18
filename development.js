@@ -13,19 +13,19 @@ app.set('port', (process.env.PORT || 3000));
 
 
 app.use(webpackDevMiddleware(compiler, {
-	publicPath: '/dist/'
+  publicPath: '/'
 }));
 app.use(webpackHotMiddleware(compiler));
 
 const apiProxy = proxy('/api', { target: api, pathRewrite: { '^/api': '' } });
 app.use(apiProxy);
 
-app.use(express.static('public'));
+app.use(express.static('build'));
 
 app.get('*', (req, res) => {
-	res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.listen(app.get('port'), function () {
-	console.log('The server is up and running on port', app.get('port'));
+  console.log('The server is up and running on port', app.get('port'));
 });

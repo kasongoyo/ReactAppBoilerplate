@@ -1,19 +1,24 @@
 const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const path = require('path');
-const URL = '/dist/';
+const URL = '/';
 
 
 const clientConfig = {
+  mode: 'development',
   devtool: 'source-map',
-  entry: [
-    // We ship a few polyfills by default:
-    require.resolve('./polyfills'),
-    'webpack-hot-middleware/client?timeout=2000',
-    path.resolve(__dirname, '..', 'src', 'index.js')
-  ],
+  entry: {
+    index: [
+      // We ship a few polyfills by default:
+      require.resolve('./polyfills'),
+      'webpack-hot-middleware/client?timeout=2000',
+      path.resolve(__dirname, '..', 'src', 'index.js')
+    ]
+  },
   output: {
-    path: path.resolve(__dirname, '..', 'public/dist'),
-    filename: 'bundle.js',
+    path: path.resolve(__dirname, '..', 'build'),
+    filename: '[name].bundle.js',
+    chunkFilename: '[name].[chunkhash].chunk.js',
     publicPath: URL,
     pathinfo: true
   },
@@ -58,15 +63,8 @@ const clientConfig = {
           sourceMap: true,
           plugins: () => [
             require('postcss-flexbugs-fixes'),
-            require('autoprefixer')({
-              browsers: [
-                '>1%',
-                'last 4 versions',
-                'Firefox ESR',
-                'not ie < 9', // React doesn't support IE8 anyway
-              ],
-              flexbox: 'no-2009',
-            })]
+            require('postcss-cssnext')
+          ]
         }
       },
       {
@@ -93,16 +91,38 @@ const clientConfig = {
       loader: 'file-loader',
       query: {
         name: 'fonts/[name].[ext]',
-        publicPath: `dist/`,
       }
     }
     ]
   },
   plugins: [
-    new webpack.optimize.ModuleConcatenationPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
-  ]
+    // Generates an `index.html` file with the <script> injected.
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: 'public/index.html',
+    }),
+    new webpack.LoaderOptionsPlugin({ options: {} }), // https://github.com/webpack/webpack/issues/6556
+    new webpack.HotModuleReplacementPlugin()
+  ],
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        common: {
+          chunks: "initial",
+          minChunks: 2,
+          maxInitialRequests: 5, // The default limit is too small to showcase the effect
+          minSize: 0 // This is example is too small to create commons chunks
+        },
+        vendor: {
+          test: /node_modules/,
+          chunks: "initial",
+          name: "vendor",
+          priority: 10,
+          enforce: true
+        }
+      }
+    }
+  }
 };
 
 

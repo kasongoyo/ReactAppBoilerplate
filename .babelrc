@@ -1,23 +1,17 @@
-/*
-    ./.babelrc
-*/
 {
-	"presets": [
-		[
-			"env",
-			{
-				"es2015": {
-					"modules": false
-				},
-				"targets": {
-					"ie": 9
-				}
-			}
-		],
-		"react"
-	],
-	"plugins": [
-		"react-hot-loader/babel",
-		"transform-object-rest-spread"
-	]
+  "presets": [
+    [
+      "env",
+      {
+        "modules": false
+      }
+    ],
+    "react"
+  ],
+  "comments": true,
+  "plugins": [
+    "syntax-dynamic-import",
+    "react-hot-loader/babel",
+    "transform-object-rest-spread"
+  ]
 }

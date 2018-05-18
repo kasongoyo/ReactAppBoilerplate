@@ -16,10 +16,10 @@ app.use(bodyParser.urlencoded({
 const apiProxy = proxy('/api', { target: api, changeOrigin: true, pathRewrite: { '^/api': '' } });
 app.use(apiProxy);
 
-app.use(express.static('public'));
+app.use(express.static('build'));
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 app.listen(app.get('port'), function () {
