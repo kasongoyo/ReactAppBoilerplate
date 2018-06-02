@@ -72,7 +72,7 @@
   "scripts": {
     "start": "node production.js",
     "dev": "node development.js",
-    "build": "NODE_ENV=production webpack-cli --config config/webpack.config.prod.js --progress --profile --colors",
+    "build": "webpack-cli --config config/webpack.config.prod.js --progress --display-reasons=true --profile --colors",
     "predev": "rm -rf build",
     "prebuild": "rm -rf build",
     "test": "jest",

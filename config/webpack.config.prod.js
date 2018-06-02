@@ -101,6 +101,11 @@ const clientConfig = {
   },
   /*eslint indent:0 */
   plugins: [
+    // ensure that we get a production build of any dependencies
+    // this is primarily for React, where this removes 179KB from the bundle
+    new webpack.DefinePlugin({
+      'process.env.NODE_ENV': '"production"'
+    }),
     // Generates an `index.html` file with the <script> injected.
     new HtmlWebpackPlugin({
       inject: true,
@@ -118,7 +123,6 @@ const clientConfig = {
           chunks: 'initial',
           minChunks: 2,
           maxInitialRequests: 5, // The default limit is too small to showcase the effect
-          minSize: 0 // This is example is too small to create commons chunks
         },
         vendor: {
           test: /node_modules/,
